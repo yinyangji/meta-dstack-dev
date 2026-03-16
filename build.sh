@@ -66,7 +66,7 @@ VMM_PORT_MAPPING_ENABLED=true
 # Host API configuration, type of uint32
 VMM_VSOCK_LISTEN_PORT=$BASE_PORT
 # Whether to enable GPU support
-VMM_ENABLE_GPU=false
+VMM_ENABLE_GPU=true
 
 KMS_RPC_LISTEN_PORT=$(($BASE_PORT + 1))
 GATEWAY_RPC_LISTEN_PORT=$(($BASE_PORT + 2))
