@@ -1,0 +1,28 @@
+log_level = "info"
+address = "127.0.0.1"
+port = 11630
+image_path = "/home/root123/pro/meta-dstack/build/images"
+run_path = "/home/root123/pro/meta-dstack/build/run/vm"
+kms_url = "https://localhost:11631"
+
+[cvm]
+kms_urls = ["https://kms.1022.dstack.org:11631"]
+gateway_urls = ["https://gateway.1022.dstack.org:11632"]
+cid_start = 648000
+cid_pool_size = 1000
+qgs_port = 4050
+[cvm.port_mapping]
+enabled = true
+address = "127.0.0.1"
+range = [
+    { protocol = "tcp", from = 1, to = 20000 },
+    { protocol = "udp", from = 1, to = 20000 },
+]
+
+[gateway]
+base_domain = "1022.dstack.org"
+port = 11634
+agent_port = 8090
+
+[host_api]
+port = 11630

@@ -1,0 +1,62 @@
+log_level = "info"
+address = "127.0.0.1"
+port = 11632
+
+[tls]
+key = "/home/root123/pro/meta-dstack/build/certs/gateway-rpc.key"
+certs = "/home/root123/pro/meta-dstack/build/certs/gateway-rpc.cert"
+
+[tls.mutual]
+ca_certs = "/home/root123/pro/meta-dstack/build/certs/gateway-ca.cert"
+mandatory = false
+
+[core]
+kms_url = "https://localhost:11631"
+rpc_domain = "gateway.1022.dstack.org"
+run_in_dstack = false
+
+[core.debug]
+insecure_skip_attestation = true
+key_file = "/home/root123/pro/meta-dstack/dstack/debug_key.json"
+
+[core.sync]
+enabled = false
+
+[core.certbot]
+enabled = true
+# Path to the working directory
+workdir = "/home/root123/pro/meta-dstack/build/run/certbot"
+# ACME server URL
+acme_url = "https://acme-staging-v02.api.letsencrypt.org/directory"
+# Cloudflare API token
+cf_api_token = "HuLrnUVuO7Bmi3r15ZkOPtmnX-ex3VS90P--5Uz9"
+# Auto set CAA record
+auto_set_caa = true
+# Domain to issue certificates for
+domain = "*.1022.dstack.org"
+# Check renewal interval
+renew_interval = "30m"
+# Number of days before expiration to trigger renewal
+renew_days_before = "10d"
+# Renew timeout
+renew_timeout = "10m"
+
+[core.wg]
+private_key = "cFGU/V2yLatP8Q0v4Ka05Zf3CMbJZvNzMyIw9bZizXQ="
+public_key = "+pzMFFvHlTKMxEK+TtYJNhNkYgFwHa5TyBib4/2zBWs="
+listen_port = 11633
+ip = "10.114.3.1/24"
+reserved_net = ["10.114.3.1/31"]
+client_ip_range = "10.114.3.1/24"
+config_path = "/home/root123/pro/meta-dstack/build/run/wg.conf"
+interface = "dgw-root123"
+endpoint = "10.0.2.2:11633"
+
+[core.proxy]
+cert_chain = "/home/root123/pro/meta-dstack/build/run/certbot/live/cert.pem"
+cert_key = "/home/root123/pro/meta-dstack/build/run/certbot/live/key.pem"
+base_domain = "1022.dstack.org"
+listen_addr = "0.0.0.0"
+listen_port = 11634
+agent_port = 8090
+app_address_ns_prefix = "_tapp-address"
