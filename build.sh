@@ -158,6 +158,7 @@ build_cfg() {
     fi
 
     GATEWAY_WG_PUBKEY=$(echo $GATEWAY_WG_KEY | wg pubkey)
+    KMS_SIGN_CERT_SKIP_QUOTE_VERIFICATION=${KMS_SIGN_CERT_SKIP_QUOTE_VERIFICATION:-false}
     # kms
     cat <<EOF >kms.toml
 log_level = "info"
@@ -176,6 +177,8 @@ mandatory = false
 
 [core]
 cert_dir = "$CERTS_DIR"
+# Skip Intel quote verification for Simulator/dev
+sign_cert_skip_quote_verification = ${KMS_SIGN_CERT_SKIP_QUOTE_VERIFICATION}
 
 [core.gpu]
 enabled = $VMM_ENABLE_GPU
@@ -211,6 +214,16 @@ mandatory = false
 kms_url = "https://localhost:$KMS_RPC_LISTEN_PORT"
 rpc_domain = "$GATEWAY_DOMAIN"
 run_in_dstack = false
+EOF
+    if [ -n "$GATEWAY_DEBUG_KEY_FILE" ]; then
+        cat <<EOF >>gateway.toml
+
+[core.debug]
+insecure_skip_attestation = true
+key_file = "$GATEWAY_DEBUG_KEY_FILE"
+EOF
+    fi
+    cat <<EOF >>gateway.toml
 
 [core.sync]
 enabled = false

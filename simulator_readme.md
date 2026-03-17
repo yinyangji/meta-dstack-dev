@@ -56,6 +56,17 @@ key_file = "/path/to/dstack/debug_key.json"
 
 或通过 `build-config.sh` 设置 `GATEWAY_DEBUG_KEY_FILE`，然后执行 `../build.sh hostcfg` 重新生成配置。
 
+**4. 配置 KMS（Simulator 模式下必须）**
+
+Simulator 生成的 quote 无法通过 Intel 校验，需在 `kms.toml` 中启用跳过：
+
+```toml
+[core]
+sign_cert_skip_quote_verification = true
+```
+
+或在 `build-config.sh` 中设置 `KMS_SIGN_CERT_SKIP_QUOTE_VERIFICATION=true`，执行 `./build.sh cfg` 重新生成 kms.toml。
+
 ### simulator_url 说明
 
 `gen_debug_key` 需要一个 simulator URL 参数，用于连接 TEE 服务获取 quote：
